@@ -1,7 +1,7 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import React from 'react'
 
-const CustomInput = ({ value, setValue, placeholder }) => {
+const CustomInput = ({ value, setValue, placeholder, secureTextEntry }) => {
   return (
     <View style={styles.container}>
       <TextInput 
@@ -9,7 +9,7 @@ const CustomInput = ({ value, setValue, placeholder }) => {
         onChangeText={setValue}
         placeholder={placeholder}
         style={styles.input}
-        secureTextEntry={true}  
+        secureTextEntry={secureTextEntry}
       />
     </View>
   )
@@ -28,7 +28,10 @@ const styles = StyleSheet.create({
         marginVertical: 5, 
     },
 
-    input: {}
+    input: {
+      height: 40,
+      verticalAlign: 'middle',
+    }
 })
 
 export default CustomInput

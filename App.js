@@ -1,12 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import LogInScreen from './src/screens/LogInScreen';
-import Logo from './assets/images/Logo.png'
+import CreateAccountScreen from './src/screens/CreateAccountScreen/CreateAccountScreen';
+import ConfirmEmailScreen from './src/screens/ConfirmEmailScreen/ConfirmEmailScreen';
+import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen/ForgotPasswordScreen';
+import NewPasswordScreen from './src/screens/NewPasswordScreen/NewPasswordScreen'
+import Navigation from './src/navigation';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <LogInScreen />
+      <Navigation />
       <StatusBar style="auto" />
     </View>
   );

@@ -3,6 +3,7 @@ import React , {useState} from 'react'
 import Logo from '../../../assets/images/Logo.png'
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from './CustomButton/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 
 const LogInScreen = () => {
   const [username, setUsername] = useState('');
@@ -11,16 +12,25 @@ const LogInScreen = () => {
   const {width} = useWindowDimensions();
   const {height} = useWindowDimensions();
 
-  const onSignInPressed = () => {
+  const navigation = useNavigation();
+
+  const onLogInPressed = () => {
     console.warn("Sign In")
+    //validate user
+
+    navigation.navigate('HomeScreen');
   }
 
   const onForgotPasswordPressed = () => {
     console.warn("Forgot Password")
+
+    navigation.navigate('ForgotPassword')
   }
 
   const onCreateAccountPressed = () => {
     console.warn("Create Account")
+
+    navigation.navigate('CreateAccount')
   }
 
   return (
@@ -43,7 +53,7 @@ const LogInScreen = () => {
           setValue={setPassword}
         />
 
-        <CustomButton text="Log In" onPress={onSignInPressed} />
+        <CustomButton text="Log In" onPress={onLogInPressed} />
         <CustomButton text="Forgot Password?" onPress={onForgotPasswordPressed} type="TERTIARY" />
         <CustomButton text="Don't have an account? Create One" onPress={onCreateAccountPressed} type="TERTIARY" />
       </View>
