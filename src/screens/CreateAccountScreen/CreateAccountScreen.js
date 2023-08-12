@@ -79,6 +79,7 @@ const CreateAccountScreen = () => {
           control={control}
           secureTextEntry
           rules={{
+            required: 'Confirm password is required',
             validate: value => value == pwd || 'Passwords do not match'
           }}
         />
