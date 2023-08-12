@@ -7,7 +7,13 @@ import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 
 const LogInScreen = () => {
-  const {control, handleSubmit} = useForm();
+  const {
+    control, 
+    handleSubmit,
+    formState: {errors}
+  } = useForm();
+
+  console.log(errors);
 
   const {width} = useWindowDimensions();
   const {height} = useWindowDimensions();
@@ -47,12 +53,14 @@ const LogInScreen = () => {
           name='username'
           placeholder='Username'
           control={control}
+          rules={{required: 'Username is required'}}
         />
 
         <CustomInput 
           name='password'
           placeholder='Password'
           control={control}
+          rules={{required: 'Password is required'}}
           secureTextEntry
         />
 
