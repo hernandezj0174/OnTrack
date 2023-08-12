@@ -60,8 +60,14 @@ const LogInScreen = () => {
           name='password'
           placeholder='Password'
           control={control}
-          rules={{required: 'Password is required'}}
           secureTextEntry
+          rules={{
+            required: 'Password is required',
+            minLength: {
+              value: 8,
+              message: 'Password must be at least 8 characters long',
+            }
+          }}
         />
 
         <CustomButton text="Log In" onPress={handleSubmit(onLogInPressed)} />

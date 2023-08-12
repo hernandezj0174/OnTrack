@@ -3,14 +3,22 @@ import React , {useState} from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../LogInScreen/CustomButton/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { useForm } from 'react-hook-form';
+
+// Default email regex pattern used for validation
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
 const CreateAccountScreen = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordRepeat, setPasswordRepeat] = useState('');
 
   const navigation = useNavigation();
+
+  const {
+    control, 
+    handleSubmit, 
+    watch
+  } = useForm();
+
+  const pwd = watch('password');
 
   const onRegisterPressed = () => {
     console.warn("onRegisterPressed")
@@ -30,32 +38,52 @@ const CreateAccountScreen = () => {
         <Text style={styles.title}>Create Account</Text>
 
         <CustomInput 
+          name='username'
           placeholder="Username"
-          value={username}
-          setValue={setUsername}
+          control={control}
+          rules={{
+            required: 'Username is required'
+          }}
         />
 
         <CustomInput 
+          name='email'
           placeholder="Email"
-          value={email}
-          setValue={setEmail}
+          control={control}
+          rules={{
+            required: 'Email is required',
+            pattern: {
+              value: EMAIL_REGEX,
+              message: 'Invalid email'
+            }
+          }}
         />
 
         <CustomInput 
+          name='password'
           placeholder="Password"
-          value={password}
-          setValue={setPassword}
           secureTextEntry
+          control={control}
+          rules={{
+            required: 'Password is required',
+            minLength: {
+              value: 8,
+              message: 'Password must be at least 8 characters long'
+            },
+          }}
         />
 
         <CustomInput 
+          name='repeatPassword'
           placeholder="Repeat Password"
-          value={passwordRepeat}
-          setValue={setPasswordRepeat}
+          control={control}
           secureTextEntry
+          rules={{
+            validate: value => value == pwd || 'Passwords do not match'
+          }}
         />
 
-        <CustomButton text="Register" onPress={onRegisterPressed} />
+        <CustomButton text="Register" onPress={handleSubmit(onRegisterPressed)} />
 
         <CustomButton text="Already have an account? Sign In" onPress={onSignInPressed} type='TERTIARY'/>
       </View>
