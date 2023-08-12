@@ -1,21 +1,22 @@
-import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native'
+import { View, TextInput, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native'
 import React , {useState} from 'react'
 import Logo from '../../../assets/images/Logo.png'
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from './CustomButton/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
 
 const LogInScreen = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const {control, handleSubmit} = useForm();
 
   const {width} = useWindowDimensions();
   const {height} = useWindowDimensions();
 
   const navigation = useNavigation();
 
-  const onLogInPressed = () => {
-    console.warn("Sign In")
+  const onLogInPressed = (data) => {
+    console.log(data);
+    console.warn("Sign In");
     //validate user
 
     navigation.navigate('HomeScreen');
@@ -43,17 +44,19 @@ const LogInScreen = () => {
         />
 
         <CustomInput 
-          placeholder="Username"
-          value={username}
-          setValue={setUsername}
-        />
-        <CustomInput 
-          placeholder="Password"
-          value={password}
-          setValue={setPassword}
+          name='username'
+          placeholder='Username'
+          control={control}
         />
 
-        <CustomButton text="Log In" onPress={onLogInPressed} />
+        <CustomInput 
+          name='password'
+          placeholder='Password'
+          control={control}
+          secureTextEntry
+        />
+
+        <CustomButton text="Log In" onPress={handleSubmit(onLogInPressed)} />
         <CustomButton text="Forgot Password?" onPress={onForgotPasswordPressed} type="TERTIARY" />
         <CustomButton text="Don't have an account? Create One" onPress={onCreateAccountPressed} type="TERTIARY" />
       </View>

@@ -38,12 +38,14 @@ const NewPasswordScreen = () => {
             placeholder="New Password"
             value={newPassword}
             setValue={setNewPassword}
+            secureTextEntry={true}
             />
 
             <CustomInput 
             placeholder="Confirm Password"
             value={confirmPassword}
             setValue={setConfirmPassword}
+            secureTextEntry={true}
             />
 
             <CustomButton text="Submit" onPress={onSubmitPressed} />
