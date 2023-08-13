@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ontrack-staging-23644-authRole",
+      "UnauthRoleArn": "arn:aws:iam::288926360586:role/amplify-ontrack-staging-23644-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::288926360586:role/amplify-ontrack-staging-23644-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-ontrack-staging-23644-deployment",
+      "UnauthRoleName": "amplify-ontrack-staging-23644-unauthRole",
+      "StackName": "amplify-ontrack-staging-23644",
+      "StackId": "arn:aws:cloudformation:us-east-2:288926360586:stack/amplify-ontrack-staging-23644/3e49cde0-3982-11ee-aa62-024fe78b3b57",
+      "AmplifyAppId": "d19mzulugne4m8"
+    },
+    "categories": {
+      "auth": {
+        "OnTrack": {}
+      }
+    }
+  }
+}

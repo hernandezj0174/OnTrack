@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet, useWindowDimensions, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, useWindowDimensions, ScrollView, Alert } from 'react-native'
 import React , {useState} from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../LogInScreen/CustomButton/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
+import { Auth } from 'aws-amplify'
 
 // Default email regex pattern used for validation
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -20,22 +21,48 @@ const CreateAccountScreen = () => {
 
   const pwd = watch('password');
 
-  const onRegisterPressed = () => {
-    console.warn("onRegisterPressed")
+  const onRegisterPressed = async data => {
+    const {username, password, email, name} = data;
 
-    navigation.navigate('ConfirmEmail')
-  }
+    try {
+      const response = await Auth.signUp({
+        username,
+        password,
+        attributes: {email, name, preferred_username: username},
+      });
+      console.log(response);
+    } catch (e) {
+      Alert.alert('Oops', e.message);
+    }
+  };
 
   const onSignInPressed = () => {
     console.warn('onSignInPressed')
 
     navigation.navigate('LogIn')
-  }
+  };
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
         <Text style={styles.title}>Create Account</Text>
+
+        <CustomInput 
+          name='name'
+          placeholder='Name'
+          control={control}
+          rules={{
+            required: 'Name is required',
+            minLength: {
+              value: 3,
+              message: 'Name should be at least 3 characters long',
+            },
+            maxLength: {
+              value: 24,
+              message: 'Name should be a maximum of 24 characters long',
+            },
+          }}
+        />
 
         <CustomInput 
           name='username'

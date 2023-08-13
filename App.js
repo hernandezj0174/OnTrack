@@ -1,24 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import LogInScreen from './src/screens/LogInScreen';
-import CreateAccountScreen from './src/screens/CreateAccountScreen/CreateAccountScreen';
-import ConfirmEmailScreen from './src/screens/ConfirmEmailScreen/ConfirmEmailScreen';
-import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen/ForgotPasswordScreen';
-import NewPasswordScreen from './src/screens/NewPasswordScreen/NewPasswordScreen'
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import Navigation from './src/navigation';
+import { Amplify, Auth } from 'aws-amplify'
+import config from './src/aws-exports'
 
-export default function App() {
+Amplify.configure(config);
+
+const App = () => {
+  // Auth.signOut();
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.root}>
       <Navigation />
-      <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
     backgroundColor: '#F9FBFC',
   },
 });
+
+export default App;
