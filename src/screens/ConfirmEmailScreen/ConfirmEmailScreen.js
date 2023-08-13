@@ -3,8 +3,14 @@ import React , {useState} from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../LogInScreen/CustomButton/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { useForm } from 'react-hook-form';
 
 const ConfirmEmailScreen = () => {
+    const {
+        control, 
+        handleSubmit
+      } = useForm();
+
     const navigation = useNavigation();
 
     const [code, setCode] = useState('');
@@ -31,12 +37,23 @@ const ConfirmEmailScreen = () => {
             <Text style={styles.title}>Confirm Your Email</Text>
 
             <CustomInput 
-            placeholder="Enter your confirmation code"
-            value={code}
-            setValue={setCode}
+                name='confirmationCode'
+                placeholder="Enter your confirmation code"
+                control={control}
+                rules={{
+                    required: true,
+                    minLength: {
+                        value: 6,
+                        message: 'Confirmation code must be 6 characters long',
+                    },
+                    maxLength: {
+                        value: 6,
+                        message: 'Confirmation code must be 6 characters long',
+                    }
+                }}
             />
 
-            <CustomButton text="Confirm" onPress={onConfirmPressed} />
+            <CustomButton text="Confirm" onPress={handleSubmit(onConfirmPressed)} />
 
             <CustomButton text="Resend Code" onPress={onResendPressed} type='SECONDARY' />
 

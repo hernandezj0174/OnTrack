@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, useWindowDimensions, ScrollView, Alert } from 'react-native'
-import React , {useState} from 'react'
+import React , {useState, useEffect} from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../LogInScreen/CustomButton/CustomButton';
 import { useNavigation } from '@react-navigation/native';
@@ -11,26 +11,26 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z
 
 const CreateAccountScreen = () => {
 
-  const navigation = useNavigation();
-
   const {
     control, 
     handleSubmit, 
     watch
   } = useForm();
-
   const pwd = watch('password');
+  const navigation = useNavigation();
 
   const onRegisterPressed = async data => {
     const {username, password, email, name} = data;
 
     try {
-      const response = await Auth.signUp({
+      await Auth.signUp({
         username,
         password,
         attributes: {email, name, preferred_username: username},
       });
-      console.log(response);
+
+      navigation.navigate('ConfirmEmail');
+
     } catch (e) {
       Alert.alert('Oops', e.message);
     }
